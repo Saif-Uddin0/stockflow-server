@@ -183,7 +183,7 @@ async function run() {
                     errorMessage = `Product not found.`;
                     break;
                 }
-                if (product.status !== 'Active') {
+                if (product.status !== 'active') {
                     validToOrder = false;
                     errorMessage = `Product "${product.name}" is currently unavailable.`;
                     break;
@@ -203,7 +203,7 @@ async function run() {
             // 3. Deducting stock safely
             for (let item of itemsToUpdate) {
                 const newStock = item.product.stockQuantity - item.deductQuantity;
-                const newStatus = newStock === 0 ? 'Out of Stock' : 'Active';
+                const newStatus = newStock === 0 ? 'out_of_stock' : 'active';
 
                 await productsCollection.updateOne(
                     { _id: new ObjectId(item.product._id) },
